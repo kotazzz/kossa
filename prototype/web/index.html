@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Касса</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@1.61.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <section class="device">
+      <div class="screen-box" id="screen-box"><canvas id="screen" width="480" height="272"></canvas></div>
+      <div id="keypad" class="keypad"></div>
+    </section>
+
+    <section class="tape-col" id="tape-col">
+      <div class="tape-bar">
+        <button id="tape-reset" class="icon-btn" title="Сбросить ленту"><i data-lucide="eraser"></i></button>
+        <button id="tape-save" class="icon-btn" title="Сохранить ленту в PNG"><i data-lucide="download"></i></button>
+        <span class="spacer"></span>
+        <button id="tape-toggle" class="icon-btn" title="Скрыть ленту"><i data-lucide="panel-right-close"></i></button>
+        <button id="drawer-open" class="icon-btn" title="Параметры стенда"><i data-lucide="sliders-horizontal"></i></button>
+      </div>
+      <div id="tape-scroll" class="tape-scroll"><div id="tape-wrap" class="tape-wrap"><canvas id="tape"></canvas></div><div class="tear"></div></div>
+    </section>
+
+    <div class="floating" id="floating">
+      <button id="tape-show" class="icon-btn" title="Показать ленту"><i data-lucide="receipt"></i></button>
+      <button id="drawer-open2" class="icon-btn" title="Параметры стенда"><i data-lucide="sliders-horizontal"></i></button>
+    </div>
+
+    <aside class="drawer" id="drawer">
+      <div class="drawer-head">
+        <span>Параметры стенда</span>
+        <button id="drawer-close" class="icon-btn" title="Закрыть"><i data-lucide="x"></i></button>
+      </div>
+      <div class="drawer-body">
+        <h3><i data-lucide="gauge"></i> Симуляция</h3>
+        <label>Скорость
+          <select id="speed"><option value="1">×1 — реальное время</option><option value="5">×5</option><option value="20">×20</option><option value="0">пауза</option></select>
+        </label>
+        <button id="reboot"><i data-lucide="rotate-ccw"></i> Перезагрузить устройства</button>
+
+        <h3><i data-lucide="printer"></i> Принтер QR701</h3>
+        <label>Питание
+          <select id="volts"><option value="9">9 В — 60 мм/с</option><option value="7.4">7,4 В — 45 мм/с</option><option value="5">5 В — 30 мм/с</option></select>
+        </label>
+        <label>Скорость UART принтера, бод
+          <select id="prn-baud"><option>9600</option><option>19200</option><option selected>115200</option><option>230400</option><option>460800</option></select>
+        </label>
+        <label>Скорость, которую просит прошивка, бод
+          <select id="app-baud"><option>9600</option><option>19200</option><option selected>115200</option><option>230400</option><option>460800</option></select>
+        </label>
+        <dl id="stats" class="stats"></dl>
+
+        <h3><i data-lucide="hard-drive"></i> Память и SD</h3>
+        <label class="file"><span><i data-lucide="image-plus"></i> Положить картинку на SD</span><input id="sd-file" type="file" accept="image/*"></label>
+        <button id="wipe" class="danger"><i data-lucide="trash-2"></i> Стереть память кассы</button>
+
+        <h3><i data-lucide="cable"></i> Канал RP2040 ↔ Guition</h3>
+        <label class="chk"><input type="checkbox" id="hide-noise" checked> скрыть ACK / STATUS</label>
+        <pre id="log" class="log"></pre>
+
+        <h3><i data-lucide="info"></i> Об устройстве</h3>
+        <dl class="stats" id="about"></dl>
+        <p class="muted" id="hotkeys"></p>
+      </div>
+    </aside>
+  </div>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
